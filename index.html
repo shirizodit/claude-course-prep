@@ -1,177 +1,192 @@
-<title>Course Prep</title>
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הכנה לקורס · Claude Code · ימי AI בטכניון</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 :root {
-  --bg: #F8F9FC;
-  --surface: #FFFFFF;
-  --surface2: #EEF1F8;
-  --border: #DDE2EE;
-  --text: #0F172A;
-  --muted: #5A6480;
-  --accent: #6E4FF6;
-  --accent-bg: #EDE9FE;
-  --green: #18C96A;
-  --green-bg: #DCFBEC;
-  --code-bg: #F0EFF8;
-  --code: #4A3DB0;
-  --shadow: 0 1px 3px rgba(14,26,64,0.07), 0 4px 16px rgba(14,26,64,0.07);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0C1121;
-    --surface: #141A2D;
-    --surface2: #1C2440;
-    --border: #263050;
-    --text: #E8EDFA;
-    --muted: #7A8AAD;
-    --accent: #8A6FF8;
-    --accent-bg: #1F1B42;
-    --green: #28DC7A;
-    --green-bg: #0D2B1C;
-    --code-bg: #1A1F38;
-    --code: #A89CF8;
-    --shadow: 0 1px 4px rgba(0,0,0,0.4);
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0C1121;
-  --surface: #141A2D;
-  --surface2: #1C2440;
-  --border: #263050;
-  --text: #E8EDFA;
-  --muted: #7A8AAD;
-  --accent: #8A6FF8;
-  --accent-bg: #1F1B42;
+  --navy: #0C1B3A;
+  --navy2: #132248;
+  --navy3: #1A2E5A;
+  --gold: #C9A84C;
+  --gold-dim: rgba(201,168,76,0.15);
+  --white: #FFFFFF;
+  --off: #E8EDF8;
+  --muted: #8A9ABF;
+  --border: rgba(255,255,255,0.10);
+  --border2: rgba(255,255,255,0.06);
   --green: #28DC7A;
-  --green-bg: #0D2B1C;
-  --code-bg: #1A1F38;
+  --green-bg: rgba(40,220,122,0.12);
+  --code-bg: rgba(255,255,255,0.07);
   --code: #A89CF8;
-  --shadow: 0 1px 4px rgba(0,0,0,0.4);
+  --shadow: 0 2px 16px rgba(0,0,0,0.35);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html { scroll-behavior: smooth; }
+
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: var(--navy);
+  color: var(--white);
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 15px;
   line-height: 1.65;
   min-height: 100vh;
 }
 
-/* progress bar */
+/* RTL/LTR */
+html[lang="he"] { direction: rtl; }
+html[lang="en"] { direction: ltr; }
+
+/* ─── TOP BAR ─── */
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 50;
-  background: var(--bg);
+  z-index: 100;
+  background: rgba(12,27,58,0.95);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-  padding: 10px 20px;
+  padding: 10px 24px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 .bar-track {
   flex: 1;
-  height: 4px;
+  height: 3px;
   background: var(--border);
   border-radius: 4px;
   overflow: hidden;
 }
 .bar-fill {
   height: 100%;
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--gold), #E8C46A);
   border-radius: 4px;
   width: 0%;
-  transition: width 0.4s ease;
+  transition: width 0.45s ease;
+}
+html[lang="he"] .bar-fill {
+  background: linear-gradient(270deg, var(--gold), #E8C46A);
 }
 .bar-label {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
+  font-weight: 700;
+  color: var(--gold);
   white-space: nowrap;
 }
 
-/* page */
-.wrap {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 48px 20px 80px;
-}
-
-/* hero */
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: var(--accent-bg);
-  color: var(--accent);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 5px 12px;
-  border-radius: 99px;
-  margin-bottom: 20px;
-}
-.eyebrow-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
+/* Lang toggle */
+.lang-toggle {
+  display: flex;
+  background: var(--navy3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2px;
+  gap: 2px;
   flex-shrink: 0;
 }
-h1 {
+.lang-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(26px, 5vw, 40px);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.lang-btn.on { background: var(--gold); color: var(--navy); }
+
+/* ─── HERO ─── */
+.hero {
+  background: linear-gradient(160deg, #0C1B3A 0%, #132248 50%, #0F2060 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 56px 24px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.event-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(201,168,76,0.35);
+  color: var(--gold);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 6px 16px;
+  border-radius: 99px;
+  margin-bottom: 22px;
+}
+.hero-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(28px, 6vw, 48px);
   font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
   margin-bottom: 14px;
 }
-h1 em {
-  color: var(--accent);
-  font-style: normal;
-}
+.hero-title em { color: var(--gold); font-style: normal; }
 .hero-sub {
   font-size: 16px;
-  color: var(--muted);
-  max-width: 500px;
+  color: var(--off);
+  opacity: 0.8;
+  max-width: 480px;
+  margin: 0 auto 24px;
   line-height: 1.7;
 }
 .pills {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 18px;
-  margin-bottom: 36px;
+  justify-content: center;
 }
 .pill {
-  background: var(--surface2);
-  color: var(--muted);
-  font-size: 12.5px;
-  font-weight: 500;
-  padding: 5px 12px;
-  border-radius: 99px;
+  background: rgba(255,255,255,0.07);
   border: 1px solid var(--border);
+  color: var(--off);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 99px;
 }
 
-/* platform toggle */
+/* ─── WRAP ─── */
+.wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* Platform toggle */
 .plat-label {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   margin-bottom: 10px;
 }
 .plat-row {
   display: inline-flex;
-  background: var(--surface2);
+  background: var(--navy2);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 3px;
@@ -183,37 +198,36 @@ h1 em {
   border: none;
   border-radius: 7px;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   background: transparent;
   color: var(--muted);
-  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  transition: background 0.15s, color 0.15s;
 }
-.plat-btn.on {
-  background: var(--surface);
-  color: var(--text);
-  box-shadow: var(--shadow);
-}
+.plat-btn.on { background: var(--navy3); color: var(--white); }
 
-/* steps */
+/* ─── STEPS ─── */
 .steps { position: relative; }
 .steps::before {
   content: '';
   position: absolute;
-  left: 19px;
+  right: 19px;
   top: 30px;
   bottom: 30px;
   width: 2px;
   background: var(--border);
 }
+html[lang="en"] .steps::before { right: auto; left: 19px; }
 
 .step {
   display: flex;
+  flex-direction: row-reverse;
   gap: 20px;
   margin-bottom: 14px;
   position: relative;
 }
+html[lang="en"] .step { flex-direction: row; }
 
 .marker {
   flex-shrink: 0;
@@ -221,16 +235,16 @@ h1 em {
   height: 40px;
   border-radius: 50%;
   border: 2px solid var(--border);
-  background: var(--surface);
+  background: var(--navy2);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   position: relative;
   z-index: 1;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background 0.2s;
 }
-.marker:hover { border-color: var(--accent); }
+.marker:hover { border-color: var(--gold); }
 .marker-num {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
@@ -248,11 +262,12 @@ h1 em {
 .step.done .marker { background: var(--green-bg); border-color: var(--green); }
 .step.done .marker-num { opacity: 0; }
 .step.done .marker-check { opacity: 1; transform: scale(1); }
-.step.done .card { border-color: var(--green); }
+.step.done .card { border-color: rgba(40,220,122,0.35); }
 
+/* Card */
 .card {
   flex: 1;
-  background: var(--surface);
+  background: var(--navy2);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 20px 22px;
@@ -266,11 +281,13 @@ h1 em {
   gap: 10px;
   margin-bottom: 6px;
 }
+html[lang="he"] .card-head { flex-direction: row-reverse; }
 .card-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 15px;
   font-weight: 700;
   line-height: 1.3;
+  color: var(--white);
 }
 .badge {
   flex-shrink: 0;
@@ -280,50 +297,48 @@ h1 em {
   text-transform: uppercase;
   padding: 3px 9px;
   border-radius: 99px;
-  background: var(--accent-bg);
-  color: var(--accent);
+  background: var(--gold-dim);
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.3);
 }
-.badge-green { background: var(--green-bg); color: var(--green); }
-.badge-orange { background: #FFF0E6; color: #C75000; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .badge-orange { background: #3A1A00; color: #FF9050; }
-}
-:root[data-theme="dark"] .badge-orange { background: #3A1A00; color: #FF9050; }
+.badge-green { background: var(--green-bg); color: var(--green); border: 1px solid rgba(40,220,122,0.3); }
+.badge-orange { background: rgba(255,140,50,0.12); color: #FF9A50; border: 1px solid rgba(255,140,50,0.3); }
 
 .card-desc {
   font-size: 14px;
   color: var(--muted);
-  line-height: 1.65;
+  line-height: 1.7;
   margin-bottom: 14px;
 }
-
-/* content inside card */
 .content { display: flex; flex-direction: column; gap: 10px; }
 
 .btn-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--accent);
-  color: #fff;
+  background: var(--gold);
+  color: var(--navy);
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13.5px;
-  font-weight: 600;
+  font-weight: 700;
   padding: 9px 18px;
   border-radius: 8px;
   text-decoration: none;
   transition: opacity 0.15s;
+  align-self: flex-start;
 }
 .btn-link:hover { opacity: 0.85; }
 
 .code-row {
   background: var(--code-bg);
+  border: 1px solid var(--border2);
   border-radius: 8px;
   padding: 10px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  direction: ltr;
 }
 .code-row code {
   font-family: 'JetBrains Mono', monospace;
@@ -339,39 +354,45 @@ h1 em {
   font-size: 11.5px;
   color: var(--muted);
   cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
   transition: color 0.15s, border-color 0.15s;
 }
-.copy-btn:hover { color: var(--text); }
+.copy-btn:hover { color: var(--white); }
 .copy-btn.ok { color: var(--green); border-color: var(--green); }
 
 .tip {
-  background: var(--accent-bg);
-  border-left: 3px solid var(--accent);
+  background: rgba(201,168,76,0.08);
+  border-right: 3px solid var(--gold);
   border-radius: 0 7px 7px 0;
   padding: 10px 14px;
   font-size: 13.5px;
   color: var(--muted);
 }
-.tip strong { color: var(--text); }
+html[lang="en"] .tip {
+  border-right: none;
+  border-left: 3px solid var(--gold);
+  border-radius: 7px 0 0 7px;
+}
+.tip strong { color: var(--off); }
 
 .steps-ol {
   font-size: 14px;
   color: var(--muted);
-  padding-left: 18px;
+  padding-right: 18px;
   display: flex;
   flex-direction: column;
   gap: 7px;
 }
-.steps-ol li strong { color: var(--text); }
+html[lang="en"] .steps-ol { padding-right: 0; padding-left: 18px; }
+.steps-ol li strong { color: var(--off); }
 
 kbd {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11.5px;
-  background: var(--surface2);
+  background: var(--navy3);
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 1px 6px;
+  color: var(--off);
 }
 code.inline {
   font-family: 'JetBrains Mono', monospace;
@@ -380,9 +401,10 @@ code.inline {
   color: var(--code);
   padding: 1px 5px;
   border-radius: 4px;
+  direction: ltr;
+  display: inline-block;
 }
 
-/* mark done */
 .done-btn {
   margin-top: 14px;
   display: inline-flex;
@@ -401,7 +423,6 @@ code.inline {
 }
 .done-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-bg); }
 .step.done .done-btn { display: none; }
-
 .done-label {
   display: none;
   align-items: center;
@@ -413,28 +434,37 @@ code.inline {
 }
 .step.done .done-label { display: flex; }
 
-/* platform visibility */
+/* Platform visibility */
 .win-only { display: none; }
-.mac-only { display: block; }
 body.win .win-only { display: block; }
-body.win .mac-only { display: none; }
-span.win-only, span.mac-only { display: none; }
+span.win-only { display: none; }
 body.win span.win-only { display: inline; }
 span.mac-only { display: inline; }
 body.win span.mac-only { display: none; }
+.mac-only { display: block; }
+body.win .mac-only { display: none; }
 
-/* celebration */
+/* Celebration */
 .done-box {
   display: none;
   flex-direction: column;
   align-items: center;
   text-align: center;
   padding: 48px 24px;
-  background: var(--surface);
+  background: var(--navy2);
   border: 1px solid var(--border);
   border-radius: 20px;
   margin-top: 28px;
   box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+.done-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), #E8C46A, var(--green));
 }
 .done-box.show { display: flex; }
 .done-icon { font-size: 52px; margin-bottom: 16px; }
@@ -444,75 +474,116 @@ body.win span.mac-only { display: none; }
   font-weight: 800;
   letter-spacing: -0.02em;
   margin-bottom: 8px;
+  color: var(--white);
 }
-.done-box > p {
-  font-size: 15px;
-  color: var(--muted);
-  max-width: 380px;
-  line-height: 1.65;
-}
+.done-box > p { font-size: 15px; color: var(--muted); max-width: 380px; line-height: 1.65; }
 .bring-box {
   margin-top: 24px;
   width: 100%;
   max-width: 420px;
-  text-align: left;
-  background: var(--surface2);
+  text-align: right;
+  background: var(--navy3);
   border-radius: 12px;
   padding: 18px 20px;
 }
+html[lang="en"] .bring-box { text-align: left; }
 .bring-box h3 {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  color: var(--muted);
+  color: var(--gold);
   margin-bottom: 12px;
 }
 .bring-row {
   display: flex;
+  flex-direction: row-reverse;
   align-items: flex-start;
   gap: 10px;
   font-size: 14px;
   color: var(--muted);
   padding: 7px 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border2);
 }
+html[lang="en"] .bring-row { flex-direction: row; }
 .bring-row:last-child { border-bottom: none; }
 .bring-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--gold);
   margin-top: 8px;
   flex-shrink: 0;
 }
 
+/* i18n visibility */
+.he { display: none; }
+.en { display: block; }
+html[lang="he"] .he { display: block; }
+html[lang="he"] .en { display: none; }
+span.he { display: none; }
+span.en { display: inline; }
+html[lang="he"] span.he { display: inline; }
+html[lang="he"] span.en { display: none; }
+
 @media (max-width: 480px) {
   .wrap { padding: 28px 14px 60px; }
   .card { padding: 16px; }
+  .hero { padding: 36px 16px 32px; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
 </style>
+</head>
+<body>
 
 <div class="topbar">
   <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
-  <div class="bar-label" id="barLabel">0 of 6</div>
+  <div class="bar-label" id="barLabel"></div>
+  <div class="lang-toggle">
+    <button class="lang-btn" id="btnHe" onclick="setLang('he')">עב</button>
+    <button class="lang-btn" id="btnEn" onclick="setLang('en')">EN</button>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="event-badge">
+    <span>🎓</span>
+    <span class="he">ימי AI בטכניון · 11–12.10.2026 · אולמן 804</span>
+    <span class="en">Technion AI Days · Oct 11–12, 2026 · Ulman 804</span>
+  </div>
+  <h1 class="hero-title">
+    <span class="he">מתכוננים ל<em>Claude Code</em></span>
+    <span class="en">Get ready for <em>Claude Code</em></span>
+  </h1>
+  <p class="hero-sub">
+    <span class="he">השלימו את הצעדים האלה לפני ה-11 לאוקטובר — כדי שנוכל להתחיל מהרגע הראשון. לוקח כ-30 דקות.</span>
+    <span class="en">Complete these steps before October 11 so we can hit the ground running from minute one. Takes about 30 minutes.</span>
+  </p>
+  <div class="pills">
+    <span class="pill">
+      <span class="he">📅 11–12 אוק׳ 2026 · אולמן 804</span>
+      <span class="en">📅 Oct 11–12, 2026 · Ulman 804</span>
+    </span>
+    <span class="pill">
+      <span class="he">⏱ ~30 דקות</span>
+      <span class="en">⏱ ~30 min</span>
+    </span>
+    <span class="pill">
+      <span class="he">🙋 לא צריך ניסיון בקוד</span>
+      <span class="en">🙋 No coding needed</span>
+    </span>
+  </div>
 </div>
 
 <div class="wrap">
-  <div class="eyebrow"><div class="eyebrow-dot"></div>Technion AI Days · Pre-Course Checklist</div>
-  <h1>Get ready for<br><em>Claude Code.</em></h1>
-  <p class="hero-sub">Complete these steps before October 11 so we can hit the ground running from minute one. Takes about 30 minutes.</p>
-  <div class="pills">
-    <span class="pill">📅 Oct 11–12, 2026 · Ulman 804</span>
-    <span class="pill">⏱ ~30 min</span>
-    <span class="pill">🙋 No coding needed</span>
-  </div>
 
-  <div class="plat-label">Your computer</div>
+  <div class="plat-label">
+    <span class="he">המחשב שלי</span>
+    <span class="en">Your computer</span>
+  </div>
   <div class="plat-row">
     <button class="plat-btn on" id="btnMac" onclick="setPlatform('mac')">🍎 Mac</button>
     <button class="plat-btn" id="btnWin" onclick="setPlatform('win')">🪟 Windows</button>
@@ -528,24 +599,37 @@ body.win span.mac-only { display: none; }
       </div>
       <div class="card">
         <div class="card-head">
-          <div class="card-title">Create a Claude account</div>
-          <span class="badge badge-green">Free to start</span>
+          <div class="card-title">
+            <span class="he">צרו חשבון Claude</span>
+            <span class="en">Create a Claude account</span>
+          </div>
+          <span class="badge badge-green">
+            <span class="he">חינמי</span>
+            <span class="en">Free to start</span>
+          </span>
         </div>
-        <p class="card-desc">You need a Claude Pro account ($20/month) to use Claude Code. If you don't have one yet, start here — the free plan doesn't include Claude Code.</p>
+        <p class="card-desc">
+          <span class="he">תצטרכו חשבון Claude Pro (20$ לחודש) כדי להשתמש ב-Claude Code. אם אין לכם חשבון — התחילו כאן. התוכנית החינמית לא כוללת את Claude Code.</span>
+          <span class="en">You need a Claude Pro account ($20/month) to use Claude Code. If you don't have one yet, start here — the free plan doesn't include Claude Code.</span>
+        </p>
         <div class="content">
           <a class="btn-link" href="https://claude.ai" target="_blank">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Go to claude.ai
+            <span class="he">עברו ל-claude.ai</span>
+            <span class="en">Go to claude.ai</span>
           </a>
-          <div class="tip"><strong>Already have an account?</strong> Sign in and confirm your plan includes Claude Code — you'll see it in the sidebar.</div>
+          <div class="tip">
+            <span class="he"><strong>כבר יש לכם חשבון?</strong> התחברו ובדקו שהמנוי שלכם כולל Claude Code — תראו אותו בסרגל הצד.</span>
+            <span class="en"><strong>Already have an account?</strong> Sign in and confirm your plan includes Claude Code — you'll see it in the sidebar.</span>
+          </div>
         </div>
         <button class="done-btn" onclick="toggle('s1')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Mark as done
+          <span class="he">סמנו כבוצע</span><span class="en">Mark as done</span>
         </button>
         <div class="done-label">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Done
+          <span class="he">בוצע</span><span class="en">Done</span>
         </div>
       </div>
     </div>
@@ -553,34 +637,44 @@ body.win span.mac-only { display: none; }
     <!-- Windows Node.js -->
     <div class="step win-only" id="swin">
       <div class="marker" onclick="toggle('swin')">
-        <span class="marker-num" style="font-size:11px">WIN</span>
+        <span class="marker-num" style="font-size:10px">WIN</span>
         <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <div class="card">
         <div class="card-head">
-          <div class="card-title">Windows only: Install Node.js first</div>
+          <div class="card-title">
+            <span class="he">Windows בלבד: התקינו Node.js קודם</span>
+            <span class="en">Windows only: Install Node.js first</span>
+          </div>
           <span class="badge badge-orange">Windows</span>
         </div>
-        <p class="card-desc">The Claude Code extension needs Node.js on Windows. Do this before installing VS Code to avoid the most common setup error.</p>
+        <p class="card-desc">
+          <span class="he">תוסף Claude Code ל-Windows זקוק ל-Node.js. עשו זאת לפני התקנת VS Code — כדי להימנע מהשגיאה הנפוצה ביותר בהגדרה.</span>
+          <span class="en">The Claude Code extension needs Node.js on Windows. Do this before installing VS Code to avoid the most common setup error.</span>
+        </p>
         <div class="content">
           <a class="btn-link" href="https://nodejs.org" target="_blank">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Node.js (LTS)
+            <span class="he">הורידו Node.js (LTS)</span>
+            <span class="en">Download Node.js (LTS)</span>
           </a>
-          <p style="font-size:13.5px;color:var(--muted)">Click the large <strong style="color:var(--text)">LTS</strong> button, run the installer, accept all defaults. Then open PowerShell and run:</p>
-          <div class="code-row">
-            <code>node --version</code>
-            <button class="copy-btn" onclick="doCopy(this,'node --version')">Copy</button>
+          <p style="font-size:13.5px;color:var(--muted)">
+            <span class="he">לחצו על הכפתור הגדול <strong style="color:var(--off)">LTS</strong>, הריצו את המתקין, אשרו את הכל. אחר כך פתחו PowerShell והריצו:</span>
+            <span class="en">Click the large <strong style="color:var(--off)">LTS</strong> button, run the installer, accept all defaults. Then open PowerShell and run:</span>
+          </p>
+          <div class="code-row"><code>node --version</code><button class="copy-btn" onclick="doCopy(this,'node --version')">Copy</button></div>
+          <div class="tip">
+            <span class="he">תראו <code class="inline">v22.x.x</code> — זה אומר שהצליח.</span>
+            <span class="en">You should see <code class="inline">v22.x.x</code> — that means it worked.</span>
           </div>
-          <div class="tip">You should see <code class="inline">v22.x.x</code> — that means it worked.</div>
         </div>
         <button class="done-btn" onclick="toggle('swin')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Mark as done
+          <span class="he">סמנו כבוצע</span><span class="en">Mark as done</span>
         </button>
         <div class="done-label">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Done
+          <span class="he">בוצע</span><span class="en">Done</span>
         </div>
       </div>
     </div>
@@ -592,23 +686,38 @@ body.win span.mac-only { display: none; }
         <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <div class="card">
-        <div class="card-head"><div class="card-title">Download the Claude Desktop app</div></div>
-        <p class="card-desc">Your companion for managing connections to Google Drive, Gmail, Calendar, and for browsing past sessions and scheduled tasks.</p>
+        <div class="card-head">
+          <div class="card-title">
+            <span class="he">הורידו את אפליקציית Claude Desktop</span>
+            <span class="en">Download the Claude Desktop app</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          <span class="he">האפליקציה מאפשרת חיבור ל-Google Drive, Gmail, יומן — ולניהול שיחות ומשימות מתוזמנות.</span>
+          <span class="en">Your companion for managing connections to Google Drive, Gmail, Calendar, and for browsing past sessions and scheduled tasks.</span>
+        </p>
         <div class="content">
           <a class="btn-link" href="https://claude.com/download" target="_blank">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download Claude Desktop
+            <span class="he">הורידו Claude Desktop</span>
+            <span class="en">Download Claude Desktop</span>
           </a>
-          <div class="tip mac-only"><strong>Mac:</strong> If macOS says it can't be opened, go to System Settings → Privacy &amp; Security → click "Open Anyway".</div>
-          <div class="tip win-only"><strong>Windows:</strong> Sign in with the same Anthropic account you used in Step 1.</div>
+          <div class="tip mac-only">
+            <span class="he"><strong>Mac:</strong> אם macOS אומר שאי אפשר לפתוח, עברו ל: הגדרות מערכת ← פרטיות ואבטחה ← לחצו "פתח בכל זאת".</span>
+            <span class="en"><strong>Mac:</strong> If macOS says it can't be opened, go to System Settings → Privacy &amp; Security → click "Open Anyway".</span>
+          </div>
+          <div class="tip win-only">
+            <span class="he"><strong>Windows:</strong> היכנסו עם אותו חשבון Anthropic שהשתמשתם בצעד 1.</span>
+            <span class="en"><strong>Windows:</strong> Sign in with the same Anthropic account you used in Step 1.</span>
+          </div>
         </div>
         <button class="done-btn" onclick="toggle('s2')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Mark as done
+          <span class="he">סמנו כבוצע</span><span class="en">Mark as done</span>
         </button>
         <div class="done-label">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Done
+          <span class="he">בוצע</span><span class="en">Done</span>
         </div>
       </div>
     </div>
@@ -620,22 +729,34 @@ body.win span.mac-only { display: none; }
         <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <div class="card">
-        <div class="card-head"><div class="card-title">Install Visual Studio Code</div></div>
-        <p class="card-desc">VS Code is the free workspace we'll use for both days. It's where Claude Code lives as a sidebar panel — think of it as your AI-powered office.</p>
+        <div class="card-head">
+          <div class="card-title">
+            <span class="he">התקינו את Visual Studio Code</span>
+            <span class="en">Install Visual Studio Code</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          <span class="he">VS Code הוא סביבת העבודה החינמית שנשתמש בה בשני הימים. כאן Claude Code יושב כפאנל בסרגל הצד — תחשבו על זה כמשרד AI שלכם.</span>
+          <span class="en">VS Code is the free workspace we'll use for both days. It's where Claude Code lives as a sidebar panel — think of it as your AI-powered office.</span>
+        </p>
         <div class="content">
           <a class="btn-link" href="https://code.visualstudio.com" target="_blank">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download VS Code
+            <span class="he">הורידו VS Code</span>
+            <span class="en">Download VS Code</span>
           </a>
-          <p style="font-size:13.5px;color:var(--muted)">Run the installer and open VS Code once. If you see the welcome screen, you're good.</p>
+          <p style="font-size:13.5px;color:var(--muted)">
+            <span class="he">הריצו את המתקין ופתחו את VS Code פעם אחת. אם רואים את מסך הפתיחה — אתם מוכנים.</span>
+            <span class="en">Run the installer and open VS Code once. If you see the welcome screen, you're good.</span>
+          </p>
         </div>
         <button class="done-btn" onclick="toggle('s3')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Mark as done
+          <span class="he">סמנו כבוצע</span><span class="en">Mark as done</span>
         </button>
         <div class="done-label">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Done
+          <span class="he">בוצע</span><span class="en">Done</span>
         </div>
       </div>
     </div>
@@ -647,24 +768,47 @@ body.win span.mac-only { display: none; }
         <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <div class="card">
-        <div class="card-head"><div class="card-title">Install the Claude Code extension</div></div>
-        <p class="card-desc">This adds the Claude AI panel to VS Code's sidebar. It's the official Anthropic extension — the one we'll use for everything in the course.</p>
+        <div class="card-head">
+          <div class="card-title">
+            <span class="he">התקינו את תוסף Claude Code</span>
+            <span class="en">Install the Claude Code extension</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          <span class="he">זה מוסיף את פאנל Claude AI לסרגל הצד של VS Code. זהו התוסף הרשמי של Anthropic — שנשתמש בו לכל אורך הקורס.</span>
+          <span class="en">This adds the Claude AI panel to VS Code's sidebar. It's the official Anthropic extension — the one we'll use for everything in the course.</span>
+        </p>
         <div class="content">
           <ol class="steps-ol">
-            <li>In VS Code, press <kbd>⌘⇧X</kbd> <span class="mac-only">(Mac)</span><span class="win-only">/ <kbd>Ctrl+Shift+X</kbd></span> to open Extensions</li>
-            <li>Search for <strong>Claude Code</strong></li>
-            <li>Click <strong>Install</strong> on the Anthropic extension</li>
-            <li>Sign in with your Anthropic account when prompted</li>
+            <li>
+              <span class="he">ב-VS Code, לחצו <kbd>⌘⇧X</kbd><span class="win-only"> / <kbd>Ctrl+Shift+X</kbd></span> לפתיחת Extensions</span>
+              <span class="en">In VS Code, press <kbd>⌘⇧X</kbd><span class="win-only"> / <kbd>Ctrl+Shift+X</kbd></span> to open Extensions</span>
+            </li>
+            <li>
+              <span class="he">חפשו <strong>Claude Code</strong></span>
+              <span class="en">Search for <strong>Claude Code</strong></span>
+            </li>
+            <li>
+              <span class="he">לחצו <strong>Install</strong> על התוסף של Anthropic</span>
+              <span class="en">Click <strong>Install</strong> on the Anthropic extension</span>
+            </li>
+            <li>
+              <span class="he">היכנסו עם חשבון Anthropic כשתתבקשו</span>
+              <span class="en">Sign in with your Anthropic account when prompted</span>
+            </li>
           </ol>
-          <div class="tip"><strong>After installing:</strong> Restart VS Code. You should see the Claude icon appear in the left sidebar.</div>
+          <div class="tip">
+            <span class="he"><strong>אחרי ההתקנה:</strong> הפעילו מחדש את VS Code. תראו את האייקון של Claude מופיע בסרגל הצד השמאלי.</span>
+            <span class="en"><strong>After installing:</strong> Restart VS Code. You should see the Claude icon appear in the left sidebar.</span>
+          </div>
         </div>
         <button class="done-btn" onclick="toggle('s4')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Mark as done
+          <span class="he">סמנו כבוצע</span><span class="en">Mark as done</span>
         </button>
         <div class="done-label">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Done
+          <span class="he">בוצע</span><span class="en">Done</span>
         </div>
       </div>
     </div>
@@ -676,27 +820,47 @@ body.win span.mac-only { display: none; }
         <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <div class="card">
-        <div class="card-head"><div class="card-title">Create your course folder</div></div>
-        <p class="card-desc">Create a folder on your Desktop called <code class="inline">claude-course</code>. Everything you build during the two days lives here — it's your personal Claude workspace.</p>
+        <div class="card-head">
+          <div class="card-title">
+            <span class="he">צרו את תיקיית הקורס</span>
+            <span class="en">Create your course folder</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          <span class="he">צרו תיקייה בשולחן העבודה שלכם בשם <code class="inline">claude-course</code>. כל מה שתבנו בשני הימים יישמר כאן — זו סביבת ה-Claude האישית שלכם.</span>
+          <span class="en">Create a folder on your Desktop called <code class="inline">claude-course</code>. Everything you build during the two days lives here — it's your personal Claude workspace.</span>
+        </p>
         <div class="content">
           <ol class="steps-ol">
-            <li>On your Desktop, create a new folder named <code class="inline">claude-course</code></li>
-            <li>In VS Code → <strong>File → Open Folder</strong> → select that folder</li>
-            <li>Open the Claude Code panel and send this to verify it works:</li>
+            <li>
+              <span class="he">צרו תיקייה חדשה בשם <code class="inline">claude-course</code> על שולחן העבודה</span>
+              <span class="en">On your Desktop, create a new folder named <code class="inline">claude-course</code></span>
+            </li>
+            <li>
+              <span class="he">ב-VS Code: <strong>File → Open Folder</strong> ← בחרו את התיקייה</span>
+              <span class="en">In VS Code → <strong>File → Open Folder</strong> → select that folder</span>
+            </li>
+            <li>
+              <span class="he">פתחו את פאנל Claude Code ושלחו כדי לבדוק שהכל עובד:</span>
+              <span class="en">Open the Claude Code panel and send this to verify it works:</span>
+            </li>
           </ol>
           <div class="code-row">
             <code>Can you see any files in this folder?</code>
             <button class="copy-btn" onclick="doCopy(this,'Can you see any files in this folder?')">Copy</button>
           </div>
-          <div class="tip"><strong>Expected:</strong> Claude says the folder is empty — that's correct and means everything is working.</div>
+          <div class="tip">
+            <span class="he"><strong>תשובה צפויה:</strong> Claude אומר שהתיקייה ריקה — זה נכון ומשמעותו שהכל עובד.</span>
+            <span class="en"><strong>Expected:</strong> Claude says the folder is empty — that's correct and means everything is working.</span>
+          </div>
         </div>
         <button class="done-btn" onclick="toggle('s5')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Mark as done
+          <span class="he">סמנו כבוצע</span><span class="en">Mark as done</span>
         </button>
         <div class="done-label">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Done
+          <span class="he">בוצע</span><span class="en">Done</span>
         </div>
       </div>
     </div>
@@ -708,47 +872,79 @@ body.win span.mac-only { display: none; }
         <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <div class="card">
-        <div class="card-head"><div class="card-title">Verify everything works</div></div>
-        <p class="card-desc">One last check: open VS Code's terminal and confirm Claude Code is installed at the command line.</p>
+        <div class="card-head">
+          <div class="card-title">
+            <span class="he">בדקו שהכל עובד</span>
+            <span class="en">Verify everything works</span>
+          </div>
+        </div>
+        <p class="card-desc">
+          <span class="he">בדיקה אחרונה: פתחו את הטרמינל של VS Code ובדקו שה-Claude Code מותקן גם בשורת הפקודה.</span>
+          <span class="en">One last check: open VS Code's terminal and confirm Claude Code is installed at the command line.</span>
+        </p>
         <div class="content">
-          <p style="font-size:14px;color:var(--muted)">Open the terminal in VS Code:
-            <span class="mac-only">press <kbd>⌃`</kbd> or go to View → Terminal.</span>
-            <span class="win-only">press <kbd>Ctrl+`</kbd> or go to View → Terminal.</span>
+          <p style="font-size:14px;color:var(--muted)">
+            <span class="he">פתחו את הטרמינל ב-VS Code: לחצו <kbd>⌃`</kbd><span class="win-only"> / <kbd>Ctrl+`</kbd></span> או View → Terminal</span>
+            <span class="en">Open the terminal in VS Code: press <kbd class="mac-only">⌃`</kbd><kbd class="win-only">Ctrl+`</kbd> or go to View → Terminal.</span>
           </p>
           <div class="code-row">
             <code>claude --version</code>
             <button class="copy-btn" onclick="doCopy(this,'claude --version')">Copy</button>
           </div>
-          <div class="tip"><strong>You should see a version number</strong> like <code class="inline">1.x.x</code>. If you see "command not found", restart VS Code and try again. Still stuck? Reach out before Day 1!</div>
+          <div class="tip">
+            <span class="he"><strong>אמורים לראות מספר גרסה</strong> כמו <code class="inline">1.x.x</code>. אם מופיע "command not found" — הפעילו מחדש את VS Code ונסו שוב. עדיין תקועים? פנו אלינו לפני יום א׳!</span>
+            <span class="en"><strong>You should see a version number</strong> like <code class="inline">1.x.x</code>. If you see "command not found", restart VS Code and try again. Still stuck? Reach out before Day 1!</span>
+          </div>
         </div>
         <button class="done-btn" onclick="toggle('s6')">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Mark as done
+          <span class="he">סמנו כבוצע</span><span class="en">Mark as done</span>
         </button>
         <div class="done-label">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Done
+          <span class="he">בוצע</span><span class="en">Done</span>
         </div>
       </div>
     </div>
 
-  </div>
+  </div><!-- /steps -->
 
   <!-- celebration -->
   <div class="done-box" id="donebox">
     <div class="done-icon">🎉</div>
-    <h2>You're all set!</h2>
-    <p>Everything is installed and working. See you on Day 1 — come with an open mind and one task you'd love to automate.</p>
+    <h2>
+      <span class="he">מוכנים לחלוטין!</span>
+      <span class="en">You're all set!</span>
+    </h2>
+    <p>
+      <span class="he">הכל מותקן ועובד. נתראה ביום א׳ — בואו עם מוח פתוח ומשימה אחת שהייתם רוצים לאוטומט.</span>
+      <span class="en">Everything is installed and working. See you on Day 1 — come with an open mind and one task you'd love to automate.</span>
+    </p>
     <div class="bring-box">
-      <h3>Bring on Day 1</h3>
-      <div class="bring-row"><div class="bring-dot"></div><span>Your laptop, charged and ready (BYOD)</span></div>
-      <div class="bring-row"><div class="bring-dot"></div><span>1–2 real files from your studies: lecture notes, a paper, lab data — anything</span></div>
-      <div class="bring-row"><div class="bring-dot"></div><span>One task you repeat every week that you wish someone else would do</span></div>
-      <div class="bring-row"><div class="bring-dot"></div><span>Curiosity — no prior experience required, all levels welcome</span></div>
+      <h3>
+        <span class="he">מה להביא ביום א׳</span>
+        <span class="en">Bring on Day 1</span>
+      </h3>
+      <div class="bring-row"><div class="bring-dot"></div>
+        <span class="he">המחשב הנייד שלכם, עם סוללה מלאה (BYOD)</span>
+        <span class="en">Your laptop, charged and ready (BYOD)</span>
+      </div>
+      <div class="bring-row"><div class="bring-dot"></div>
+        <span class="he">1–2 קבצים אמיתיים מהלימודים: הערות הרצאה, מאמר, נתוני מעבדה — כל דבר</span>
+        <span class="en">1–2 real files from your studies: lecture notes, a paper, lab data — anything</span>
+      </div>
+      <div class="bring-row"><div class="bring-dot"></div>
+        <span class="he">משימה אחת שאתם חוזרים עליה כל שבוע ושהייתם רוצים שמישהו אחר יעשה</span>
+        <span class="en">One task you repeat every week that you wish someone else would do</span>
+      </div>
+      <div class="bring-row"><div class="bring-dot"></div>
+        <span class="he">סקרנות — לא נדרש ניסיון קודם, כל הרמות מוזמנות</span>
+        <span class="en">Curiosity — no prior experience required, all levels welcome</span>
+      </div>
     </div>
   </div>
 
-</div>
+</div><!-- /wrap -->
 
 <script>
 var MAC_STEPS = ['s1','s2','s3','s4','s5','s6'];
@@ -757,14 +953,12 @@ var WIN_STEPS = ['s1','swin','s2','s3','s4','s5','s6'];
 function getSteps() {
   return document.body.classList.contains('win') ? WIN_STEPS : MAC_STEPS;
 }
-
 function load() {
-  try { return JSON.parse(localStorage.getItem('cp2') || '{}'); } catch(e) { return {}; }
+  try { return JSON.parse(localStorage.getItem('cp3') || '{}'); } catch(e) { return {}; }
 }
 function save(s) {
-  try { localStorage.setItem('cp2', JSON.stringify(s)); } catch(e) {}
+  try { localStorage.setItem('cp3', JSON.stringify(s)); } catch(e) {}
 }
-
 function toggle(id) {
   var el = document.getElementById(id);
   if (!el) return;
@@ -774,7 +968,6 @@ function toggle(id) {
   save(s);
   refresh();
 }
-
 function refresh() {
   var ids = getSteps();
   var total = ids.length;
@@ -785,34 +978,37 @@ function refresh() {
   }
   var pct = total ? Math.round(done / total * 100) : 0;
   document.getElementById('barFill').style.width = pct + '%';
-  document.getElementById('barLabel').textContent = done + ' of ' + total;
+  var lang = document.documentElement.lang;
+  document.getElementById('barLabel').textContent = lang === 'he'
+    ? done + ' מתוך ' + total
+    : done + ' of ' + total;
   var box = document.getElementById('donebox');
-  if (done === total && total > 0) {
-    box.classList.add('show');
-  } else {
-    box.classList.remove('show');
-  }
+  if (done === total && total > 0) box.classList.add('show');
+  else box.classList.remove('show');
 }
-
 function setPlatform(p) {
   document.body.classList.toggle('win', p === 'win');
   document.getElementById('btnMac').classList.toggle('on', p === 'mac');
   document.getElementById('btnWin').classList.toggle('on', p === 'win');
-  try { localStorage.setItem('cp2-plat', p); } catch(e) {}
+  try { localStorage.setItem('cp3-plat', p); } catch(e) {}
   refresh();
 }
-
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.getElementById('btnHe').classList.toggle('on', lang === 'he');
+  document.getElementById('btnEn').classList.toggle('on', lang === 'en');
+  try { localStorage.setItem('cp3-lang', lang); } catch(e) {}
+  refresh();
+}
 function doCopy(btn, text) {
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(function() {
-      btn.textContent = 'Copied!';
+      btn.textContent = '✓';
       btn.classList.add('ok');
       setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 1800);
     });
   }
 }
-
-// init
 (function() {
   var s = load();
   var allIds = ['s1','swin','s2','s3','s4','s5','s6'];
@@ -822,9 +1018,14 @@ function doCopy(btn, text) {
       if (el) el.classList.add('done');
     }
   }
+  var lang = '';
   var plat = '';
-  try { plat = localStorage.getItem('cp2-plat') || ''; } catch(e) {}
+  try { lang = localStorage.getItem('cp3-lang') || 'he'; } catch(e) { lang = 'he'; }
+  try { plat = localStorage.getItem('cp3-plat') || ''; } catch(e) {}
+  setLang(lang);
   if (plat === 'win') setPlatform('win');
-  else refresh();
+  else { setPlatform('mac'); refresh(); }
 })();
 </script>
+</body>
+</html>
