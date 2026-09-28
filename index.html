@@ -1,0 +1,830 @@
+<title>Course Prep</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #F8F9FC;
+  --surface: #FFFFFF;
+  --surface2: #EEF1F8;
+  --border: #DDE2EE;
+  --text: #0F172A;
+  --muted: #5A6480;
+  --accent: #6E4FF6;
+  --accent-bg: #EDE9FE;
+  --green: #18C96A;
+  --green-bg: #DCFBEC;
+  --code-bg: #F0EFF8;
+  --code: #4A3DB0;
+  --shadow: 0 1px 3px rgba(14,26,64,0.07), 0 4px 16px rgba(14,26,64,0.07);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C1121;
+    --surface: #141A2D;
+    --surface2: #1C2440;
+    --border: #263050;
+    --text: #E8EDFA;
+    --muted: #7A8AAD;
+    --accent: #8A6FF8;
+    --accent-bg: #1F1B42;
+    --green: #28DC7A;
+    --green-bg: #0D2B1C;
+    --code-bg: #1A1F38;
+    --code: #A89CF8;
+    --shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C1121;
+  --surface: #141A2D;
+  --surface2: #1C2440;
+  --border: #263050;
+  --text: #E8EDFA;
+  --muted: #7A8AAD;
+  --accent: #8A6FF8;
+  --accent-bg: #1F1B42;
+  --green: #28DC7A;
+  --green-bg: #0D2B1C;
+  --code-bg: #1A1F38;
+  --code: #A89CF8;
+  --shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* progress bar */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.bar-track {
+  flex: 1;
+  height: 4px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 4px;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+.bar-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* page */
+.wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+}
+
+/* hero */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 99px;
+  margin-bottom: 20px;
+}
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(26px, 5vw, 40px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+h1 em {
+  color: var(--accent);
+  font-style: normal;
+}
+.hero-sub {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 500px;
+  line-height: 1.7;
+}
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+  margin-bottom: 36px;
+}
+.pill {
+  background: var(--surface2);
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+}
+
+/* platform toggle */
+.plat-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 10px;
+}
+.plat-row {
+  display: inline-flex;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 3px;
+  gap: 2px;
+  margin-bottom: 36px;
+}
+.plat-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 7px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: var(--muted);
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+.plat-btn.on {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+/* steps */
+.steps { position: relative; }
+.steps::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: var(--border);
+}
+
+.step {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.marker {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: border-color 0.2s;
+}
+.marker:hover { border-color: var(--accent); }
+.marker-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  transition: opacity 0.15s;
+}
+.marker-check {
+  position: absolute;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.2s, transform 0.25s;
+  color: var(--green);
+}
+.step.done .marker { background: var(--green-bg); border-color: var(--green); }
+.step.done .marker-num { opacity: 0; }
+.step.done .marker-check { opacity: 1; transform: scale(1); }
+.step.done .card { border-color: var(--green); }
+
+.card {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s;
+}
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.card-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.badge {
+  flex-shrink: 0;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+.badge-green { background: var(--green-bg); color: var(--green); }
+.badge-orange { background: #FFF0E6; color: #C75000; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .badge-orange { background: #3A1A00; color: #FF9050; }
+}
+:root[data-theme="dark"] .badge-orange { background: #3A1A00; color: #FF9050; }
+
+.card-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+/* content inside card */
+.content { display: flex; flex-direction: column; gap: 10px; }
+
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.btn-link:hover { opacity: 0.85; }
+
+.code-row {
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.code-row code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--code);
+}
+.copy-btn {
+  flex-shrink: 0;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 3px 9px;
+  font-size: 11.5px;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: color 0.15s, border-color 0.15s;
+}
+.copy-btn:hover { color: var(--text); }
+.copy-btn.ok { color: var(--green); border-color: var(--green); }
+
+.tip {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 7px 7px 0;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+.tip strong { color: var(--text); }
+
+.steps-ol {
+  font-size: 14px;
+  color: var(--muted);
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.steps-ol li strong { color: var(--text); }
+
+kbd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+code.inline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  color: var(--code);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* mark done */
+.done-btn {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1.5px dashed var(--border);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.done-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-bg); }
+.step.done .done-btn { display: none; }
+
+.done-label {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 14px;
+}
+.step.done .done-label { display: flex; }
+
+/* platform visibility */
+.win-only { display: none; }
+.mac-only { display: block; }
+body.win .win-only { display: block; }
+body.win .mac-only { display: none; }
+span.win-only, span.mac-only { display: none; }
+body.win span.win-only { display: inline; }
+span.mac-only { display: inline; }
+body.win span.mac-only { display: none; }
+
+/* celebration */
+.done-box {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  margin-top: 28px;
+  box-shadow: var(--shadow);
+}
+.done-box.show { display: flex; }
+.done-icon { font-size: 52px; margin-bottom: 16px; }
+.done-box h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.done-box > p {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 380px;
+  line-height: 1.65;
+}
+.bring-box {
+  margin-top: 24px;
+  width: 100%;
+  max-width: 420px;
+  text-align: left;
+  background: var(--surface2);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.bring-box h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.bring-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--muted);
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+}
+.bring-row:last-child { border-bottom: none; }
+.bring-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .wrap { padding: 28px 14px 60px; }
+  .card { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+
+<div class="topbar">
+  <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+  <div class="bar-label" id="barLabel">0 of 6</div>
+</div>
+
+<div class="wrap">
+  <div class="eyebrow"><div class="eyebrow-dot"></div>Technion AI Days · Pre-Course Checklist</div>
+  <h1>Get ready for<br><em>Claude Code.</em></h1>
+  <p class="hero-sub">Complete these steps before October 11 so we can hit the ground running from minute one. Takes about 30 minutes.</p>
+  <div class="pills">
+    <span class="pill">📅 Oct 11–12, 2026 · Ulman 804</span>
+    <span class="pill">⏱ ~30 min</span>
+    <span class="pill">🙋 No coding needed</span>
+  </div>
+
+  <div class="plat-label">Your computer</div>
+  <div class="plat-row">
+    <button class="plat-btn on" id="btnMac" onclick="setPlatform('mac')">🍎 Mac</button>
+    <button class="plat-btn" id="btnWin" onclick="setPlatform('win')">🪟 Windows</button>
+  </div>
+
+  <div class="steps" id="steps">
+
+    <!-- 1 -->
+    <div class="step" id="s1">
+      <div class="marker" onclick="toggle('s1')">
+        <span class="marker-num">1</span>
+        <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Create a Claude account</div>
+          <span class="badge badge-green">Free to start</span>
+        </div>
+        <p class="card-desc">You need a Claude Pro account ($20/month) to use Claude Code. If you don't have one yet, start here — the free plan doesn't include Claude Code.</p>
+        <div class="content">
+          <a class="btn-link" href="https://claude.ai" target="_blank">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Go to claude.ai
+          </a>
+          <div class="tip"><strong>Already have an account?</strong> Sign in and confirm your plan includes Claude Code — you'll see it in the sidebar.</div>
+        </div>
+        <button class="done-btn" onclick="toggle('s1')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Mark as done
+        </button>
+        <div class="done-label">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Done
+        </div>
+      </div>
+    </div>
+
+    <!-- Windows Node.js -->
+    <div class="step win-only" id="swin">
+      <div class="marker" onclick="toggle('swin')">
+        <span class="marker-num" style="font-size:11px">WIN</span>
+        <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Windows only: Install Node.js first</div>
+          <span class="badge badge-orange">Windows</span>
+        </div>
+        <p class="card-desc">The Claude Code extension needs Node.js on Windows. Do this before installing VS Code to avoid the most common setup error.</p>
+        <div class="content">
+          <a class="btn-link" href="https://nodejs.org" target="_blank">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Node.js (LTS)
+          </a>
+          <p style="font-size:13.5px;color:var(--muted)">Click the large <strong style="color:var(--text)">LTS</strong> button, run the installer, accept all defaults. Then open PowerShell and run:</p>
+          <div class="code-row">
+            <code>node --version</code>
+            <button class="copy-btn" onclick="doCopy(this,'node --version')">Copy</button>
+          </div>
+          <div class="tip">You should see <code class="inline">v22.x.x</code> — that means it worked.</div>
+        </div>
+        <button class="done-btn" onclick="toggle('swin')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Mark as done
+        </button>
+        <div class="done-label">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Done
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="step" id="s2">
+      <div class="marker" onclick="toggle('s2')">
+        <span class="marker-num">2</span>
+        <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Download the Claude Desktop app</div></div>
+        <p class="card-desc">Your companion for managing connections to Google Drive, Gmail, Calendar, and for browsing past sessions and scheduled tasks.</p>
+        <div class="content">
+          <a class="btn-link" href="https://claude.com/download" target="_blank">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Claude Desktop
+          </a>
+          <div class="tip mac-only"><strong>Mac:</strong> If macOS says it can't be opened, go to System Settings → Privacy &amp; Security → click "Open Anyway".</div>
+          <div class="tip win-only"><strong>Windows:</strong> Sign in with the same Anthropic account you used in Step 1.</div>
+        </div>
+        <button class="done-btn" onclick="toggle('s2')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Mark as done
+        </button>
+        <div class="done-label">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Done
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="step" id="s3">
+      <div class="marker" onclick="toggle('s3')">
+        <span class="marker-num">3</span>
+        <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Install Visual Studio Code</div></div>
+        <p class="card-desc">VS Code is the free workspace we'll use for both days. It's where Claude Code lives as a sidebar panel — think of it as your AI-powered office.</p>
+        <div class="content">
+          <a class="btn-link" href="https://code.visualstudio.com" target="_blank">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download VS Code
+          </a>
+          <p style="font-size:13.5px;color:var(--muted)">Run the installer and open VS Code once. If you see the welcome screen, you're good.</p>
+        </div>
+        <button class="done-btn" onclick="toggle('s3')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Mark as done
+        </button>
+        <div class="done-label">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Done
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="step" id="s4">
+      <div class="marker" onclick="toggle('s4')">
+        <span class="marker-num">4</span>
+        <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Install the Claude Code extension</div></div>
+        <p class="card-desc">This adds the Claude AI panel to VS Code's sidebar. It's the official Anthropic extension — the one we'll use for everything in the course.</p>
+        <div class="content">
+          <ol class="steps-ol">
+            <li>In VS Code, press <kbd>⌘⇧X</kbd> <span class="mac-only">(Mac)</span><span class="win-only">/ <kbd>Ctrl+Shift+X</kbd></span> to open Extensions</li>
+            <li>Search for <strong>Claude Code</strong></li>
+            <li>Click <strong>Install</strong> on the Anthropic extension</li>
+            <li>Sign in with your Anthropic account when prompted</li>
+          </ol>
+          <div class="tip"><strong>After installing:</strong> Restart VS Code. You should see the Claude icon appear in the left sidebar.</div>
+        </div>
+        <button class="done-btn" onclick="toggle('s4')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Mark as done
+        </button>
+        <div class="done-label">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Done
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="step" id="s5">
+      <div class="marker" onclick="toggle('s5')">
+        <span class="marker-num">5</span>
+        <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Create your course folder</div></div>
+        <p class="card-desc">Create a folder on your Desktop called <code class="inline">claude-course</code>. Everything you build during the two days lives here — it's your personal Claude workspace.</p>
+        <div class="content">
+          <ol class="steps-ol">
+            <li>On your Desktop, create a new folder named <code class="inline">claude-course</code></li>
+            <li>In VS Code → <strong>File → Open Folder</strong> → select that folder</li>
+            <li>Open the Claude Code panel and send this to verify it works:</li>
+          </ol>
+          <div class="code-row">
+            <code>Can you see any files in this folder?</code>
+            <button class="copy-btn" onclick="doCopy(this,'Can you see any files in this folder?')">Copy</button>
+          </div>
+          <div class="tip"><strong>Expected:</strong> Claude says the folder is empty — that's correct and means everything is working.</div>
+        </div>
+        <button class="done-btn" onclick="toggle('s5')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Mark as done
+        </button>
+        <div class="done-label">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Done
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="step" id="s6">
+      <div class="marker" onclick="toggle('s6')">
+        <span class="marker-num">6</span>
+        <svg class="marker-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Verify everything works</div></div>
+        <p class="card-desc">One last check: open VS Code's terminal and confirm Claude Code is installed at the command line.</p>
+        <div class="content">
+          <p style="font-size:14px;color:var(--muted)">Open the terminal in VS Code:
+            <span class="mac-only">press <kbd>⌃`</kbd> or go to View → Terminal.</span>
+            <span class="win-only">press <kbd>Ctrl+`</kbd> or go to View → Terminal.</span>
+          </p>
+          <div class="code-row">
+            <code>claude --version</code>
+            <button class="copy-btn" onclick="doCopy(this,'claude --version')">Copy</button>
+          </div>
+          <div class="tip"><strong>You should see a version number</strong> like <code class="inline">1.x.x</code>. If you see "command not found", restart VS Code and try again. Still stuck? Reach out before Day 1!</div>
+        </div>
+        <button class="done-btn" onclick="toggle('s6')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Mark as done
+        </button>
+        <div class="done-label">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Done
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- celebration -->
+  <div class="done-box" id="donebox">
+    <div class="done-icon">🎉</div>
+    <h2>You're all set!</h2>
+    <p>Everything is installed and working. See you on Day 1 — come with an open mind and one task you'd love to automate.</p>
+    <div class="bring-box">
+      <h3>Bring on Day 1</h3>
+      <div class="bring-row"><div class="bring-dot"></div><span>Your laptop, charged and ready (BYOD)</span></div>
+      <div class="bring-row"><div class="bring-dot"></div><span>1–2 real files from your studies: lecture notes, a paper, lab data — anything</span></div>
+      <div class="bring-row"><div class="bring-dot"></div><span>One task you repeat every week that you wish someone else would do</span></div>
+      <div class="bring-row"><div class="bring-dot"></div><span>Curiosity — no prior experience required, all levels welcome</span></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var MAC_STEPS = ['s1','s2','s3','s4','s5','s6'];
+var WIN_STEPS = ['s1','swin','s2','s3','s4','s5','s6'];
+
+function getSteps() {
+  return document.body.classList.contains('win') ? WIN_STEPS : MAC_STEPS;
+}
+
+function load() {
+  try { return JSON.parse(localStorage.getItem('cp2') || '{}'); } catch(e) { return {}; }
+}
+function save(s) {
+  try { localStorage.setItem('cp2', JSON.stringify(s)); } catch(e) {}
+}
+
+function toggle(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('done');
+  var s = load();
+  s[id] = el.classList.contains('done');
+  save(s);
+  refresh();
+}
+
+function refresh() {
+  var ids = getSteps();
+  var total = ids.length;
+  var done = 0;
+  for (var i = 0; i < ids.length; i++) {
+    var el = document.getElementById(ids[i]);
+    if (el && el.classList.contains('done')) done++;
+  }
+  var pct = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('barFill').style.width = pct + '%';
+  document.getElementById('barLabel').textContent = done + ' of ' + total;
+  var box = document.getElementById('donebox');
+  if (done === total && total > 0) {
+    box.classList.add('show');
+  } else {
+    box.classList.remove('show');
+  }
+}
+
+function setPlatform(p) {
+  document.body.classList.toggle('win', p === 'win');
+  document.getElementById('btnMac').classList.toggle('on', p === 'mac');
+  document.getElementById('btnWin').classList.toggle('on', p === 'win');
+  try { localStorage.setItem('cp2-plat', p); } catch(e) {}
+  refresh();
+}
+
+function doCopy(btn, text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() {
+      btn.textContent = 'Copied!';
+      btn.classList.add('ok');
+      setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 1800);
+    });
+  }
+}
+
+// init
+(function() {
+  var s = load();
+  var allIds = ['s1','swin','s2','s3','s4','s5','s6'];
+  for (var i = 0; i < allIds.length; i++) {
+    if (s[allIds[i]]) {
+      var el = document.getElementById(allIds[i]);
+      if (el) el.classList.add('done');
+    }
+  }
+  var plat = '';
+  try { plat = localStorage.getItem('cp2-plat') || ''; } catch(e) {}
+  if (plat === 'win') setPlatform('win');
+  else refresh();
+})();
+</script>
