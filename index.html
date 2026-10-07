@@ -898,21 +898,21 @@ html[lang="he"] span.en { display: none; }
           </div>
         </div>
         <p class="card-desc">
-          <span class="he">בדיקה אחרונה: פתחו את הטרמינל של VS Code ובדקו שה-Claude Code מותקן גם בשורת הפקודה.</span>
-          <span class="en">One last check: open VS Code's terminal and confirm Claude Code is installed at the command line.</span>
+          <span class="he">בדיקה אחרונה: שלחו הודעה ל-Claude בחלונית ב-VS Code וודאו שמתקבלת תשובה. זה כל מה שצריך כדי להתחיל.</span>
+          <span class="en">One last check: send Claude a message in the VS Code panel and confirm you get a reply. That is all you need to start.</span>
         </p>
         <div class="content">
-          <p style="font-size:14px;color:var(--muted)">
-            <span class="he">פתחו את הטרמינל ב-VS Code: לחצו <kbd>⌃`</kbd><span class="win-only"> / <kbd>Ctrl+`</kbd></span> או View → Terminal</span>
-            <span class="en">Open the terminal in VS Code: press <kbd class="mac-only">⌃`</kbd><kbd class="win-only">Ctrl+`</kbd> or go to View → Terminal.</span>
-          </p>
           <div class="code-row">
-            <code>claude --version</code>
-            <button class="copy-btn" onclick="doCopy(this,'claude --version')">Copy</button>
+            <code>Hello! Can you see this folder?</code>
+            <button class="copy-btn" onclick="doCopy(this,'Hello! Can you see this folder?')">Copy</button>
           </div>
           <div class="tip">
-            <span class="he"><strong>אמורים לראות מספר גרסה</strong> כמו <code class="inline">1.x.x</code>. אם מופיע "command not found" — הפעילו מחדש את VS Code ונסו שוב. עדיין תקועים? פנו אלינו לפני יום א׳!</span>
-            <span class="en"><strong>You should see a version number</strong> like <code class="inline">1.x.x</code>. If you see "command not found", restart VS Code and try again. Still stuck? Reach out before Day 1!</span>
+            <span class="he"><strong>קיבלתם תשובה?</strong> אתם מוכנים. הקורס עובד בחלונית ובאפליקציית Claude Desktop, ולא צריך שורת פקודה.</span>
+            <span class="en"><strong>Got a reply?</strong> You are ready. The course runs in the panel and the Claude Desktop app, so the command line is not needed.</span>
+          </div>
+          <div class="tip">
+            <span class="he"><strong>רשות:</strong> אם הרצתם <code class="inline">claude --version</code> בטרמינל וקיבלתם "not recognized", זה בסדר. התוסף משתמש בעותק משלו. אפשר להתעלם, או להתקין את הפקודה ב-PowerShell: <code class="inline">irm https://claude.ai/install.ps1 | iex</code>, ואז לסגור ולפתוח מחדש את VS Code.</span>
+            <span class="en"><strong>Optional:</strong> if you ran <code class="inline">claude --version</code> in the terminal and saw "not recognized", that is fine. The extension uses its own copy. You can ignore it, or install the command in PowerShell with <code class="inline">irm https://claude.ai/install.ps1 | iex</code>, then close and reopen VS Code.</span>
           </div>
         </div>
         <button class="done-btn" onclick="toggle('s6')">
