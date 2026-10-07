@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code for Everyone – סילבוס</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700&family=Assistant:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column; journey strip up top, then two day-blocks of time/module rows. HE/EN swap by [data-lang] */
+:root{
+  --bg:#f6f7fb; --surface:#ffffff; --fg:#1b1f33; --muted:#5b617a;
+  --line:#e0e3ee; --accent:#3a3fd1; --accent-soft:#e8e9fb; --deliv:#0e7a5f; --where:#8a4b00; --where-bg:#fdf0dc;
+  --font-display:'Rubik','Arial Hebrew',Arial,sans-serif;
+  --font-body:'Assistant','Arial Hebrew',Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121422; --surface:#1b1e33; --fg:#eceefb; --muted:#a2a8c6;
+  --line:#2d3150; --accent:#9da1ff; --accent-soft:#262a4f; --deliv:#4fd1a8; --where:#f0b86e; --where-bg:#3a2c12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121422; --surface:#1b1e33; --fg:#eceefb; --muted:#a2a8c6;
+  --line:#2d3150; --accent:#9da1ff; --accent-soft:#262a4f; --deliv:#4fd1a8; --where:#f0b86e; --where-bg:#3a2c12; color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:18px;line-height:1.6;padding-inline:16px;padding-block:24px 56px}
+main{max-width:760px;margin-inline:auto;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--font-display);line-height:1.2;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.5rem;font-weight:700;margin-bottom:14px}
+h3{font-size:1.1rem;font-weight:500}
+p{margin:0}
+[data-lang="he"] .en,[data-lang="en"] .he{display:none!important}
+.he,.en{display:inline}
+div.he,div.en,p.he,p.en,h1 .he,h1 .en{display:block}
+.bar{display:flex;justify-content:flex-end}
+.tog{display:inline-flex;border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:3px;gap:2px}
+.tog button{font:600 .85rem var(--font-display);border:0;background:transparent;color:var(--muted);padding:5px 14px;border-radius:99px;cursor:pointer}
+.tog button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.tog button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.eyebrow{font-family:var(--font-display);font-size:.8rem;letter-spacing:.08em;color:var(--accent);font-weight:500}
+header.top{display:flex;flex-direction:column;gap:14px}
+.lead{font-size:1.2rem;color:var(--muted);max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;padding-top:6px;color:var(--muted);font-size:.95rem}
+.meta b{color:var(--fg);font-weight:600}
+ul{margin:0;padding-inline-start:1.2em;display:flex;flex-direction:column;gap:6px}
+ul>li>.he,ul>li>.en{display:inline}
+[data-lang="he"] ul>li>.en,[data-lang="en"] ul>li>.he{display:none}
+.journey{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative}
+.journey li{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-family:var(--font-display);font-size:.85rem;position:relative;min-width:0}
+.journey li::before{content:"";position:absolute;top:17px;inset-inline:-50% 50%;height:2px;background:var(--line);z-index:0}
+.journey li:first-child::before{display:none}
+.journey i{font-style:normal;z-index:1;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font-weight:700}
+.journey li:nth-child(n+4) i{background:var(--deliv)}
+.jkey{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:.88rem;color:var(--muted)}
+.jkey .d1::before,.jkey .d2::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-inline-end:6px;background:var(--accent)}
+.jkey .d2::before{background:var(--deliv)}
+.jkey div{display:block}
+.get2{display:grid;grid-template-columns:1fr;gap:6px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:6px}
+.day>header{margin-bottom:8px}
+.day .date{color:var(--muted);font-size:.95rem}
+.slot{display:grid;grid-template-columns:7.5em 1fr;gap:4px 16px;padding-block:14px;border-top:1px solid var(--line);min-width:0}
+.slot.brk{padding-block:8px;color:var(--muted);font-size:.95rem}
+.time{font-variant-numeric:tabular-nums;color:var(--muted);direction:ltr;text-align:start;font-size:.95rem}
+.slot>div{min-width:0;display:flex;flex-direction:column;gap:6px}
+.slot p{color:var(--muted);font-size:.98rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.where,.out{border-radius:99px;padding:2px 10px;font-size:.86rem;font-weight:600}
+.where{background:var(--where-bg);color:var(--where)}
+.out{background:var(--accent-soft);color:var(--deliv)}
+@media (max-width:520px){.slot{grid-template-columns:1fr}.journey li{font-size:.72rem}}
+.note{color:var(--muted);font-size:.95rem}
+.tracks{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tracks span{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 14px;font-size:.98rem}
+footer{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:.95rem;display:flex;flex-direction:column;gap:6px}
+footer b{color:var(--fg)}
+</style>
+</head>
+<body>
+<mainid="root" data-lang="he">
+  <div class="bar"><div class="tog" role="group" aria-label="Language / שפה">
+    <button type="button" id="b-he" aria-pressed="true">עברית</button>
+    <button type="button" id="b-en" aria-pressed="false">English</button>
+  </div></div>
+
+  <header class="top">
+    <span class="eyebrow">TECHNION AI DAYS · 2026</span>
+    <h1>Claude Code for Everyone</h1>
+    <p class="lead"><span class="he" lang="he" dir="rtl">סדנה מעשית בת יומיים. בסוף היום השני יש לכם תהליך עבודה אישי שפועל, ומבצע בשבילכם משהו אמיתי בלימודים או במחקר.</span><span class="en" lang="en" dir="ltr">A hands-on two-day workshop. By the end of Day 2 you have a personal workflow that runs and does something real for you in your studies or research.</span></p>
+    <div class="meta">
+      <span><span class="he" lang="he" dir="rtl"><b>תאריכים:</b> 11–12 באוקטובר 2026</span><span class="en" lang="en" dir="ltr"><b>Dates:</b> October 11–12, 2026</span></span>
+      <span><span class="he" lang="he" dir="rtl"><b>שעות:</b> 10:00–16:00 בכל יום</span><span class="en" lang="en" dir="ltr"><b>Hours:</b> 10:00–16:00 each day</span></span>
+      <span><span class="he" lang="he" dir="rtl"><b>מקום:</b> אולמן 804, הטכניון</span><span class="en" lang="en" dir="ltr"><b>Location:</b> Ulman 804, Technion</span></span>
+    </div>
+  </header>
+
+  <section>
+    <h2><span class="he" lang="he" dir="rtl">על מה הקורס</span><span class="en" lang="en" dir="ltr">About the course</span></h2>
+    <p class="he" lang="he" dir="rtl">Claude Code הוא סוכן שעובד על המחשב שלכם: הוא קורא את הקבצים שלכם, כותב, מארגן ובונה. הוא לא רק עונה בצ׳אט. בקורס תלמדו להנחות אותו על החומרים שלכם: סילבוסים, סיכומי הרצאות, מאמרים ונתוני מעבדה.</p>
+    <p class="en" lang="en" dir="ltr">Claude Code is an agent that works on your computer: it reads your files, writes, organizes and builds. It does more than answer in a chat. You will learn to direct it on your own material: syllabi, lecture notes, papers and lab data.</p>
+    <p class="he" lang="he" dir="rtl" style="margin-top:10px">הקורס חזותי: עובדים באפליקציית Claude Desktop ובחלונית של Claude Code בתוך VS Code, ורואים על המסך כל קובץ ש-Claude פותח או משנה. כל מודול נגמר בתוצר שאפשר לפתוח בדפדפן או במסמך. לא צריך ניסיון בתכנות.</p>
+    <p class="en" lang="en" dir="ltr" style="margin-top:10px">The course is visual: you work in the Claude Desktop app and in the Claude Code panel inside VS Code, and you see every file Claude opens or changes. Every module ends with something you can open in a browser or a document. No programming experience is needed.</p>
+  </section>
+
+  <section>
+    <h2><span class="he" lang="he" dir="rtl">המסע בשני ימים</span><span class="en" lang="en" dir="ltr">The two-day journey</span></h2>
+    <ol class="journey"><li><i>1</i><span class="he" lang="he" dir="rtl">פרומפט</span><span class="en" lang="en" dir="ltr">Prompt</span></li><li><i>2</i><span class="he" lang="he" dir="rtl">הקשר</span><span class="en" lang="en" dir="ltr">Context</span></li><li><i>3</i><span class="he" lang="he" dir="rtl">Skills</span><span class="en" lang="en" dir="ltr">Skills</span></li><li><i>4</i><span class="he" lang="he" dir="rtl">חיבורים</span><span class="en" lang="en" dir="ltr">Connections</span></li><li><i>5</i><span class="he" lang="he" dir="rtl">סוכנים</span><span class="en" lang="en" dir="ltr">Agents</span></li><li><i>6</i><span class="he" lang="he" dir="rtl">שיתוף</span><span class="en" lang="en" dir="ltr">Shared</span></li></ol>
+    <div class="jkey"><div class="d1"><span class="he" lang="he" dir="rtl">יום ראשון: 1–3</span><span class="en" lang="en" dir="ltr">Day 1: steps 1–3</span></div><div class="d2"><span class="he" lang="he" dir="rtl">יום שני: 4–6</span><span class="en" lang="en" dir="ltr">Day 2: steps 4–6</span></div></div>
+  </section>
+
+  <section>
+    <h2><span class="he" lang="he" dir="rtl">מה תוכלו לעשות בסוף</span><span class="en" lang="en" dir="ltr">What you will be able to do</span></h2>
+    <ul><li><span class="he" lang="he" dir="rtl">להסביר מהו סוכן AI ומה ההבדל בינו לצ׳אט</span><span class="en" lang="en" dir="ltr">Explain what an AI agent is and how it differs from a chat</span></li><li><span class="he" lang="he" dir="rtl">לכתוב הוראות ברורות ולבנות CLAUDE.md אישי</span><span class="en" lang="en" dir="ltr">Write clear instructions and build a personal CLAUDE.md</span></li><li><span class="he" lang="he" dir="rtl">לבחור מצב הרשאה מתאים, ולהתחיל תמיד ממצב תכנון</span><span class="en" lang="en" dir="ltr">Pick the right permission mode, starting in plan mode</span></li><li><span class="he" lang="he" dir="rtl">לארוז תהליך שחוזר על עצמו ל-Skill ולהתקין Skills מוכנים</span><span class="en" lang="en" dir="ltr">Package a repeating task as a Skill and install ready-made ones</span></li><li><span class="he" lang="he" dir="rtl">לעבוד באפליקציית Claude Desktop (Cowork) בלי טרמינל</span><span class="en" lang="en" dir="ltr">Work in the Claude Desktop app (Cowork) with no terminal</span></li><li><span class="he" lang="he" dir="rtl">לחבר את Claude ל-Gmail, Drive, Calendar ולחיפוש ברשת</span><span class="en" lang="en" dir="ltr">Connect Claude to Gmail, Drive, Calendar and web search</span></li><li><span class="he" lang="he" dir="rtl">להפעיל שני סוכני-משנה על משימה אחת</span><span class="en" lang="en" dir="ltr">Run two sub-agents on one job</span></li><li><span class="he" lang="he" dir="rtl">לפרסם את מה שבניתם ב-GitHub כך שאחרים יוכלו להשתמש בו</span><span class="en" lang="en" dir="ltr">Publish what you built on GitHub so others can use it</span></li></ul>
+  </section>
+
+  <section>
+    <h2><span class="he" lang="he" dir="rtl">למי הסדנה מיועדת</span><span class="en" lang="en" dir="ltr">Who it is for</span></h2>
+    <p class="he" lang="he" dir="rtl">סטודנטים לתארים ראשון, שני ושלישי מכל הפקולטות, חברי סגל, חוקרים וצוות מנהלי. כל הרמות מתאימות, ממי שמעולם לא פתח טרמינל ועד מתכנתים ותיקים.</p>
+    <p class="en" lang="en" dir="ltr">Bachelor's, master's and PhD students from every faculty, academic staff, researchers and administrative staff. All levels are welcome, from people who have never opened a terminal to experienced programmers.</p>
+    <div class="tracks"><span><span class="he" lang="he" dir="rtl">למידה ומבחנים</span><span class="en" lang="en" dir="ltr">Learning and exams</span></span><span><span class="he" lang="he" dir="rtl">מחקר ותזה</span><span class="en" lang="en" dir="ltr">Research and thesis</span></span><span><span class="he" lang="he" dir="rtl">אוטומציה אישית</span><span class="en" lang="en" dir="ltr">Personal automation</span></span></div>
+    <p class="note" style="margin-top:8px"><span class="he" lang="he" dir="rtl">בכל מעבדה בוחרים את התחום הקרוב אליכם. כל התרגול מתבצע בכיתה, בלי שיעורי בית.</span><span class="en" lang="en" dir="ltr">In each lab you pick the area closest to you. All practice happens in class, with no homework.</span></p>
+  </section>
+
+  <section class="day" aria-labelledby="d1">
+    <header>
+      <span class="eyebrow"><span class="he" lang="he" dir="rtl">יום ראשון · 11.10</span><span class="en" lang="en" dir="ltr">Day 1 · Oct 11</span></span>
+      <h2 id="d1" style="margin:0"><span class="he" lang="he" dir="rtl">יסודות: סוכן, הקשר, CLAUDE.md ו-Skills</span><span class="en" lang="en" dir="ltr">Foundations: agent, context, CLAUDE.md and Skills</span></h2>
+      <p class="date"><span class="he" lang="he" dir="rtl">עד סוף היום יש ל-Claude שלכם תיקייה, הוראות קבועות ו-Skill משלכם. לאורך היום מלווה אותנו נועה, סטודנטית להנדסת חשמל בשנה ג׳ עם חמישה קורסים, מעבדה שבועית ומבחנים שמתנגשים.</span><span class="en" lang="en" dir="ltr">By the end of the day your Claude has a folder, standing instructions and a Skill of your own. Noa, a third-year electrical engineering student with five courses, a weekly lab and clashing exams, joins us all day.</span></p>
+    </header>
+    <div class="slot"><span class="time">10:00–11:15</span><div>
+<h3><span class="he" lang="he" dir="rtl">מודול 1 · מצ׳אט לסוכן, והאפליקציה הראשונה שלכם</span><span class="en" lang="en" dir="ltr">Module 1 · From chat to agent, and your first app</span></h3>
+<p><span class="he" lang="he" dir="rtl">מה ההבדל בין מודל שפה לסוכן, ואיך Claude Code עובד על התיקייה שלכם. עוד לפני סוף המודול Claude בונה לכם כלי עובד שנפתח בדפדפן, למשל כרטיסיות חזרה למבחן.</span><span class="en" lang="en" dir="ltr">How a language model differs from an agent, and how Claude Code works inside your folder. Before the module ends, Claude builds you a working tool that opens in your browser, such as exam flashcards.</span></p>
+<div class="chips"><span class="where"><span class="he" lang="he" dir="rtl">חלונית VS Code</span><span class="en" lang="en" dir="ltr">VS Code panel</span></span><span class="out"><span class="he" lang="he" dir="rtl">תוצר: הכלי הראשון שלכם</span><span class="en" lang="en" dir="ltr">Output: your first working tool</span></span></div></div></div><div class="slot brk"><span class="time">11:15–11:30</span><div><span class="he" lang="he" dir="rtl">הפסקה</span><span class="en" lang="en" dir="ltr">Break</span></div></div><div class="slot"><span class="time">11:30–12:45</span><div>
+<h3><span class="he" lang="he" dir="rtl">מודול 2 · Context Engineering</span><span class="en" lang="en" dir="ltr">Module 2 · Context engineering</span></h3>
+<p><span class="he" lang="he" dir="rtl">למה Claude &quot;שוכח&quot;, ומה הוא רואה בכל רגע. התיקייה שלכם היא העולם שלו; מצביעים על קבצים, מפרקים משימה לשלבים ומנקים את השיחה כשהיא מתמלאת. נועה, סטודנטית להנדסת חשמל, בונה כך תוכנית לימוד מחמשת הסילבוסים שלה.</span><span class="en" lang="en" dir="ltr">Why Claude &quot;forgets&quot;, and what it can see at any moment. Your folder is its whole world; you point it at files, split a task into steps and clear the conversation when it fills up. Noa, an electrical engineering student, builds a study plan from her five syllabi.</span></p>
+<div class="chips"><span class="where"><span class="he" lang="he" dir="rtl">חלונית VS Code</span><span class="en" lang="en" dir="ltr">VS Code panel</span></span><span class="out"><span class="he" lang="he" dir="rtl">תוצר: תוכנית לימוד</span><span class="en" lang="en" dir="ltr">Output: a study plan</span></span></div></div></div><div class="slot brk"><span class="time">12:45–13:30</span><div><span class="he" lang="he" dir="rtl">הפסקת צהריים</span><span class="en" lang="en" dir="ltr">Lunch</span></div></div><div class="slot"><span class="time">13:30–14:45</span><div>
+<h3><span class="he" lang="he" dir="rtl">מודול 3 · CLAUDE.md ומצבי הרשאה</span><span class="en" lang="en" dir="ltr">Module 3 · CLAUDE.md and permission modes</span></h3>
+<p><span class="he" lang="he" dir="rtl">כותבים פעם אחת מי אתם, איך אתם לומדים או חוקרים, ומה Claude צריך לדעת, והוא מתחיל כל שיחה כשהוא מכיר אתכם. במקביל מגדירים מה מותר לו לעשות לבד, ומתרגלים את ההרגל: קודם תוכנית, אחר כך אישור, ואז ביצוע.</span><span class="en" lang="en" dir="ltr">Write once who you are, how you study or research and what Claude should know, and every session starts with Claude already knowing you. You also set what it may do on its own, and practice the habit: plan first, approve, then execute.</span></p>
+<div class="chips"><span class="where"><span class="he" lang="he" dir="rtl">חלונית VS Code</span><span class="en" lang="en" dir="ltr">VS Code panel</span></span><span class="out"><span class="he" lang="he" dir="rtl">תוצר: CLAUDE.md אישי והגדרות הרשאה</span><span class="en" lang="en" dir="ltr">Output: a personal CLAUDE.md and permissions</span></span></div></div></div><div class="slot brk"><span class="time">14:45–15:00</span><div><span class="he" lang="he" dir="rtl">הפסקה</span><span class="en" lang="en" dir="ltr">Break</span></div></div><div class="slot"><span class="time">15:00–16:00</span><div>
+<h3><span class="he" lang="he" dir="rtl">מודול 4 · Skills: לארוז, להתקין, להשתמש שוב</span><span class="en" lang="en" dir="ltr">Module 4 · Skills: package, install, reuse</span></h3>
+<p><span class="he" lang="he" dir="rtl">פתרתם משהו פעמיים? זה Skill. אורזים תהליך שלכם לחבילה שרצה בהוראה קצרה, ומתקינים Skills מוכנים מהקטלוג הרשמי, כולל יצירת מצגות וקבצי Word ו-Excel.</span><span class="en" lang="en" dir="ltr">Solved something twice? Make it a Skill. You package one of your own workflows so it runs from a one-line request, and install ready-made Skills from the official catalog, including ones that produce slides, Word and Excel files.</span></p>
+<div class="chips"><span class="where"><span class="he" lang="he" dir="rtl">חלונית VS Code</span><span class="en" lang="en" dir="ltr">VS Code panel</span></span><span class="out"><span class="he" lang="he" dir="rtl">תוצר: Skill ראשון</span><span class="en" lang="en" dir="ltr">Output: your first Skill</span></span></div></div></div>
+  </section>
+
+  <section class="day" aria-labelledby="d2">
+    <header>
+      <span class="eyebrow"><span class="he" lang="he" dir="rtl">יום שני · 12.10</span><span class="en" lang="en" dir="ltr">Day 2 · Oct 12</span></span>
+      <h2 id="d2" style="margin:0"><span class="he" lang="he" dir="rtl">חיבור, תזמור ובנייה</span><span class="en" lang="en" dir="ltr">Connect, orchestrate, build</span></h2>
+      <p class="date"><span class="he" lang="he" dir="rtl">מחברים את Claude לעולם שלכם, ומרכיבים את תהליך העבודה האישי.</span><span class="en" lang="en" dir="ltr">You connect Claude to your world and assemble your personal workflow.</span></p>
+    </header>
+    <div class="slot"><span class="time">10:00–11:15</span><div>
+<h3><span class="he" lang="he" dir="rtl">מודול 5 · Cowork: אותו סוכן, בלי טרמינל</span><span class="en" lang="en" dir="ltr">Module 5 · Cowork: the same agent, no terminal</span></h3>
+<p><span class="he" lang="he" dir="rtl">אותו Claude בתוך אפליקציית Claude Desktop, עם ממשק ידידותי למסמכים: גיליונות, מצגות וקבצי טקסט. מריצים את ה-Skill שבניתם ביום ראשון גם כאן, ולומדים מתי לבחור בכל אחד מהמסכים.</span><span class="en" lang="en" dir="ltr">The same Claude inside the Claude Desktop app, with a friendlier surface for documents: spreadsheets, slides and text files. You run the Skill you built on Day 1 here too, and learn when to pick each surface.</span></p>
+<div class="chips"><span class="where"><span class="he" lang="he" dir="rtl">Claude Desktop · Cowork</span><span class="en" lang="en" dir="ltr">Claude Desktop · Cowork</span></span><span class="out"><span class="he" lang="he" dir="rtl">תוצר: Skill שרץ ב-Cowork</span><span class="en" lang="en" dir="ltr">Output: your Skill running in Cowork</span></span></div></div></div><div class="slot brk"><span class="time">11:15–11:30</span><div><span class="he" lang="he" dir="rtl">הפסקה</span><span class="en" lang="en" dir="ltr">Break</span></div></div><div class="slot"><span class="time">11:30–12:45</span><div>
+<h3><span class="he" lang="he" dir="rtl">מודול 6 · חיבורים: MCP ו-Connectors</span><span class="en" lang="en" dir="ltr">Module 6 · Connections: MCP and Connectors</span></h3>
+<p><span class="he" lang="he" dir="rtl">מחברים את Claude ל-Gmail, Google Drive, Calendar ולחיפוש ברשת, ומסבירים בפשטות מה זה MCP. מחברים מקור אחד ומפיקים ממנו דף סיכום חזותי, למשל תקציר שבועי או מעקב מאמרים.</span><span class="en" lang="en" dir="ltr">Connect Claude to Gmail, Google Drive, Calendar and web search, with a plain explanation of what MCP is. You connect one source and turn it into a visual summary page, such as a weekly briefing or a paper digest.</span></p>
+<div class="chips"><span class="where"><span class="he" lang="he" dir="rtl">Claude Desktop ו-VS Code</span><span class="en" lang="en" dir="ltr">Claude Desktop and VS Code</span></span><span class="out"><span class="he" lang="he" dir="rtl">תוצר: דף סיכום מחובר</span><span class="en" lang="en" dir="ltr">Output: a connected dashboard</span></span></div></div></div><div class="slot brk"><span class="time">12:45–13:30</span><div><span class="he" lang="he" dir="rtl">הפסקת צהריים</span><span class="en" lang="en" dir="ltr">Lunch</span></div></div><div class="slot"><span class="time">13:30–14:45</span><div>
+<h3><span class="he" lang="he" dir="rtl">מודול 7 · סוכני-משנה</span><span class="en" lang="en" dir="ltr">Module 7 · Sub-agents</span></h3>
+<p><span class="he" lang="he" dir="rtl">במקום סוכן אחד שעושה הכול: חוקר שרק קורא, ובונה שמכין את התוצר. מפעילים אותם בזה אחר זה על משימה אחת.</span><span class="en" lang="en" dir="ltr">Instead of one agent doing everything: a researcher that only reads, and a builder that makes the output. You run them one after the other on a single job.</span></p>
+<div class="chips"><span class="where"><span class="he" lang="he" dir="rtl">חלונית VS Code</span><span class="en" lang="en" dir="ltr">VS Code panel</span></span><span class="out"><span class="he" lang="he" dir="rtl">תוצר: תהליך של שני סוכנים</span><span class="en" lang="en" dir="ltr">Output: a two-agent workflow</span></span></div></div></div><div class="slot brk"><span class="time">14:45–15:00</span><div><span class="he" lang="he" dir="rtl">הפסקה</span><span class="en" lang="en" dir="ltr">Break</span></div></div><div class="slot"><span class="time">15:00–16:00</span><div>
+<h3><span class="he" lang="he" dir="rtl">מודול 8 · התהליך האישי שלכם, שיתוף והצעדים הבאים</span><span class="en" lang="en" dir="ltr">Module 8 · Your personal workflow, sharing and what's next</span></h3>
+<p><span class="he" lang="he" dir="rtl">מחברים את כל מה שבניתם (CLAUDE.md, Skill, חיבור וסוכנים) לתהליך אחד שמשרת משימה אמיתית שלכם, ומפרסמים אותו ב-GitHub עם README ברור. מסיימים במה חדש בעולם Claude ובהצגת התוצרים.</span><span class="en" lang="en" dir="ltr">Combine everything you built (CLAUDE.md, Skill, connection and agents) into one workflow for a real task of yours, and publish it on GitHub with a clear README. We close with what is new in the Claude world and a showcase of your results.</span></p>
+<div class="chips"><span class="where"><span class="he" lang="he" dir="rtl">הכול ביחד</span><span class="en" lang="en" dir="ltr">Everything together</span></span><span class="out"><span class="he" lang="he" dir="rtl">תוצר: תהליך עבודה אישי</span><span class="en" lang="en" dir="ltr">Output: your personal workflow</span></span></div></div></div>
+  </section>
+
+  <section>
+    <h2><span class="he" lang="he" dir="rtl">לפני שמתחילים</span><span class="en" lang="en" dir="ltr">Before you start</span></h2>
+    <ul><li><span class="he" lang="he" dir="rtl">מחשב נייד עם macOS, ‏Windows 10/11 או Linux, ולפחות 8GB זיכרון.</span><span class="en" lang="en" dir="ltr">A laptop with macOS, Windows 10/11 or Linux, and at least 8GB of RAM.</span></li><li><span class="he" lang="he" dir="rtl">חשבון Claude Pro ומעלה. Claude Code לא זמין בתוכנית החינמית.</span><span class="en" lang="en" dir="ltr">A Claude Pro account or higher. Claude Code is not available on the free plan.</span></li><li><span class="he" lang="he" dir="rtl">כל ההתקנות מתבצעות לפני היום הראשון, לפי דף ההכנה לקורס. הכנה לוקחת כ-30 דקות.</span><span class="en" lang="en" dir="ltr">Everything is installed before Day 1, using the course prep page. Setup takes about 30 minutes.</span></li><li><span class="he" lang="he" dir="rtl">שני דברים אמיתיים מהלימודים או מהמחקר: קבצים (סילבוס, סיכומים, מאמר) ומשימה שחוזרת על עצמה כל שבוע.</span><span class="en" lang="en" dir="ltr">Two real things from your studies or research: some files (a syllabus, notes, a paper) and one task you repeat every week.</span></li></ul>
+  </section>
+
+  <section>
+    <h2><span class="he" lang="he" dir="rtl">לקריאה נוספת</span><span class="en" lang="en" dir="ltr">Further reading</span></h2>
+    <ul>
+      <li><a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noopener"><span class="he" lang="he" dir="rtl">תיעוד Claude Code הרשמי</span><span class="en" lang="en" dir="ltr">Official Claude Code documentation</span></a></li>
+      <li><a href="https://claude.com/docs/cowork/overview" target="_blank" rel="noopener"><span class="he" lang="he" dir="rtl">תיעוד Cowork הרשמי</span><span class="en" lang="en" dir="ltr">Official Cowork documentation</span></a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p><span class="he" lang="he" dir="rtl"><b>מנחה: שירי זוהר</b>, AI Team Lead ב-monday.com. עובדת עם Claude Code ביום-יום, ומביאה לסדנה תהליכי עבודה שנבדקו בפועל, לא תאוריה.</span><span class="en" lang="en" dir="ltr"><b>Instructor: Shiri Zohar</b>, AI Team Lead at monday.com. She works with Claude Code every day and brings workflows tested in practice, not theory.</span></p>
+    <p><span class="he" lang="he" dir="rtl">הסדנה במסגרת Technion AI Days · aidays.technion.ac.il</span><span class="en" lang="en" dir="ltr">Part of Technion AI Days · aidays.technion.ac.il</span></p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var root=document.getElementById('root'),bh=document.getElementById('b-he'),be=document.getElementById('b-en');
+  function set(l){
+    root.setAttribute('data-lang',l);
+    document.documentElement.lang=l;
+    bh.setAttribute('aria-pressed',l==='he');be.setAttribute('aria-pressed',l==='en');
+    try{localStorage.setItem('syl-lang',l)}catch(e){}
+  }
+  bh.onclick=function(){set('he')};be.onclick=function(){set('en')};
+  var s='he';try{s=localStorage.getItem('syl-lang')||localStorage.getItem('cp3-lang')||'he'}catch(e){}
+  set(s==='en'?'en':'he');
+})();
+</script>
+</body>
+</html>
